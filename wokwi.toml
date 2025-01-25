@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build\animacoes_matriz.hex'
+elf = 'build\animacoes_matriz.uf2'

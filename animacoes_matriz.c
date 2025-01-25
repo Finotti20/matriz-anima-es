@@ -1,72 +1,267 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "hardware/pio.h"
+#include "pico/cyw43_arch.h"
+#include "hardware/clocks.h"
 
-#define ROWS 4
-#define COLS 4
-#define MATRIX_SIZE 5 
+#include "ws2812.pio.h"
 
-const uint8_t row_pins[ROWS] = {8, 7, 6, 5};
-const uint8_t col_pins[COLS] = {4, 3, 2, 1};
+// ---------------- TECLADO - INICIO ----------------
 
-const char key_map[ROWS][COLS] = {
-    {'1', '2', '3', 'A'},
-    {'4', '5', '6', 'B'},
-    {'7', '8', '9', 'C'},
-    {'*', '0', '#', 'D'}};
+// Definição do tamanho do teclado matricial (4x4)
+#define LINHAS 4
+#define COLUNAS 4
 
-void init_gpio()
-{
+// Definição dos pinos GPIO das linhas e colunas do teclado matricial
+#define L1 9
+#define L2 8
+#define L3 7
+#define L4 6
+#define C1 5
+#define C2 4
+#define C3 3
+#define C4 2
 
-    for (int i = 0; i < ROWS; i++)
-    {
-        gpio_init(row_pins[i]);
-        gpio_set_dir(row_pins[i], GPIO_OUT);
-        gpio_put(row_pins[i], 1); // Linha inicialmente em HIGH
-    }
-    for (int i = 0; i < COLS; i++)
-    {
-        gpio_init(col_pins[i]);
-        gpio_set_dir(col_pins[i], GPIO_IN);
-        gpio_pull_up(col_pins[i]); // Ativa pull-up nas colunas
-    }
-}
+// Arrays com os pinos correspondentes às linhas e colunas
+const uint8_t pinos_linhas[LINHAS] = {L1,L2,L3,L4};
+const uint8_t pinos_colunas[COLUNAS] = {C1,C2,C3,C4};
 
-char scan_keypad()
-{
-    for (int row = 0; row < ROWS; row++)
-    {
-        gpio_put(row_pins[row], 0); // Configura a linha atual como LOW.
-        for (int col = 0; col < COLS; col++)
-        {
-            if (gpio_get(col_pins[col]) == 0)
-            {
-                while (gpio_get(col_pins[col]) == 0)
-                    ;
-                gpio_put(row_pins[row], 1);
-                return key_map[row][col];
-            }
-        }
-        gpio_put(row_pins[row], 1); 
-    }
-    return '\0';
-}
-
-int ledMatrix[MATRIX_SIZE][MATRIX_SIZE] = {
-    {0, 1, 2, 3, 4},
-    {5, 6, 7, 8, 9},
-    {10, 11, 12, 13, 14},
-    {15, 16, 17, 18, 19},
-    {20, 21, 22, 23, 24}
+// Mapeamento das teclas do teclado matricial
+const char teclas[LINHAS][COLUNAS] = {
+  {'1','2','3','A'},
+  {'4','5','6','B'},
+  {'7','8','9','C'},
+  {'*','0','#','D'}
 };
 
-void initializeLedMatrix() {
-    for (int i = 0; i < MATRIX_SIZE; i++) {
-        for (int j = 0; j < MATRIX_SIZE; j++) {
-            int pin = ledMatrix[i][j];
-            gpio_set_dir(pin, GPIO_OUT); 
-            gpio_put(pin, 0); 
-        }
+// Função para inicializar os pinos das linhas e colunas do teclado
+void iniciar_keypad() {
+  uint8_t i;
+  // Configura os pinos das linhas como saída e define o estado inicial como 0
+  for(i=0;i<LINHAS;i++) {
+    gpio_init(pinos_linhas[i]);
+    gpio_set_dir(pinos_linhas[i], GPIO_OUT);
+    gpio_put(pinos_linhas[i], 0);
+  }
+  // Configura os pinos das colunas como entrada e ativa o pull-down interno
+  for(i=0;i<COLUNAS;i++) {
+    gpio_init(pinos_colunas[i]);
+    gpio_set_dir(pinos_colunas[i], GPIO_IN);
+    gpio_pull_down(pinos_colunas[i]);
+  }
+}
+
+// Função para ler a tecla pressionada no teclado matricial
+char ler_keypad() {
+  uint8_t linha;
+  uint8_t coluna;
+  // Itera pelas linhas e verifica se há sinal em alguma coluna
+  for(linha=0;linha<LINHAS;linha++) {
+    gpio_put(pinos_linhas[linha], 1); // Ativa a linha atual
+    for(coluna=0;coluna<COLUNAS;coluna++) {
+      if( gpio_get(pinos_colunas[coluna]) ) { // Verifica se há sinal na coluna
+        gpio_put(pinos_linhas[linha], 0); // Desativa a linha atual
+        return teclas[linha][coluna]; // Retorna a tecla pressionada
+      }
     }
+    gpio_put(pinos_linhas[linha], 0); // Desativa a linha atual
+  }
+  return '\0'; // Retorna '\0' se nenhuma tecla foi pressionada
+}
+
+// ---------------- TECLADO - FIM ----------------
+
+
+
+// ---------------- WS2812 - INICIO ----------------
+
+// Definição do número de LEDs e pino.
+#define LED_COUNT 25
+#define LED_PIN 22
+
+// Definição de pixel GRB
+struct pixel_t {
+  uint8_t G, R, B; // Três valores de 8-bits compõem um pixel.
+};
+typedef struct pixel_t pixel_t;
+typedef pixel_t npLED_t; // Mudança de nome de "struct pixel_t" para "npLED_t" por clareza.
+
+// Declaração do buffer de pixels que formam a matriz.
+npLED_t leds[LED_COUNT];
+
+// Variáveis para uso da máquina PIO.
+PIO np_pio;
+uint sm;
+
+
+// Inicializa a máquina PIO para controle da matriz de LEDs.
+void npInit(uint pin) {
+
+  // Cria programa PIO.
+  uint offset = pio_add_program(pio0, &ws2812_program);
+  np_pio = pio0;
+
+  // Toma posse de uma máquina PIO.
+  sm = pio_claim_unused_sm(np_pio, false);
+  if (sm < 0) {
+    np_pio = pio1;
+    sm = pio_claim_unused_sm(np_pio, true); // Se nenhuma máquina estiver livre, panic!
+  }
+
+  // Inicia programa na máquina PIO obtida.
+  ws2812_program_init(np_pio, sm, offset, pin, 800000.f);
+
+  // Limpa buffer de pixels.
+  for (uint i = 0; i < LED_COUNT; ++i) {
+    leds[i].R = 0;
+    leds[i].G = 0;
+    leds[i].B = 0;
+  }
+}
+
+
+// Atribui uma cor RGB a um LED.
+void npSetLED(const uint index, const uint8_t r, const uint8_t g, const uint8_t b) {
+  leds[index].R = r;
+  leds[index].G = g;
+  leds[index].B = b;
+}
+
+
+// Limpa o buffer de pixels.
+void npClear() {
+  for (uint i = 0; i < LED_COUNT; ++i)
+    npSetLED(i, 0, 0, 0);
+}
+
+
+// Escreve os dados do buffer nos LEDs.
+void npWrite() {
+  // Escreve cada dado de 8-bits dos pixels em sequência no buffer da máquina PIO.
+  for (uint i = 0; i < LED_COUNT; ++i) {
+    pio_sm_put_blocking(np_pio, sm, leds[i].G);
+    pio_sm_put_blocking(np_pio, sm, leds[i].R);
+    pio_sm_put_blocking(np_pio, sm, leds[i].B);
+  }
+  sleep_us(100); // Espera 100us, sinal de RESET do datasheet.
+}
+
+// ---------------- WS2812 - FIM ----------------
+
+
+
+// ---------------- Desenhar - INICIO ----------------
+
+void npDraw(uint8_t vetorR[5][5], uint8_t vetorG[5][5], uint8_t vetorB[5][5]) {
+  int i,j,idx;
+  for(i=0;i<5;i++) {
+    idx = (4-i)*5;
+    for(j=4;j>=0;j--) {
+      npSetLED(idx+(4-j),vetorR[i][j],vetorG[i][j],vetorB[i][j]);
+    }
+  }
+}
+
+// ---------------- Desenhar - FIM ----------------
+
+void animacao1() {
+
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR1[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 ,  0  , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    {  0  , 255 , 255 , 255 ,  0  }
+  };
+  uint8_t vetorG1[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB1[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR1,vetorG1,vetorB1);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+
+  sleep_ms(1000);
+
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR2[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG2[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 ,  0  , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    {  0  , 255 , 255 , 255 ,  0  }
+  };
+  uint8_t vetorB2[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR2,vetorG2,vetorB2);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+
+  sleep_ms(1000);
+
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR3[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG3[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB3[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 ,  0  , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    {  0  , 255 , 255 , 255 ,  0  }
+  };
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR3,vetorG3,vetorB3);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
 }
 
 void handle_keypress(char key) {
@@ -75,65 +270,74 @@ void handle_keypress(char key) {
             animacao1();
             break;
         case '2':
-            animacao2();
+            //animacao2();
             break;
         case '3':
-            animacao3();
+            //animacao3();
             break;
         case 'A':
-            aciona_leds();
+            //aciona_leds();
             break;
         case '4':
-            animacao4();
+            //animacao4();
             break;
         case '5':
-            animacao5();
+            //animacao5();
             break;
         case '6':
-            animacao6();
+            //animacao6();
             break;
         case 'B':
-            leds_azuis();
+            //leds_azuis();
             break;
         case '7':
-            animacao7();
+            //animacao7();
             break;
         case '8':
-            animacao8();
+            //animacao8();
             break;
         case '9':
-            animacao9();
+            //animacao9();
             break;
         case 'C':
-            leds_vermelhos();
+            //leds_vermelhos();
             break;
         case '*':
-            reboot();
+            //reboot();
             break;
         case '0':
-            animacao0();
+            //animacao0();
             break;
         case '#':
-            white_leds();
+            //white_leds();
             break;
         case 'D':
-            leds_verdes();
+            //leds_verdes();
             break;
         default:
             break;
     }
 }
 
-int main()
-{
-    stdio_init_all();
-    init_gpio();
-    initializeLedMatrix();
+int main() {
+  char tecla;
+  int i,j,idx;
+  stdio_init_all();
+  
+  // Inicializa o teclado matricial
+  iniciar_keypad();
+  
+  // Inicializa matriz de LEDs NeoPixel.
+  npInit(LED_PIN);
+  npClear();
 
-    while (true) {
-        char key = scan_keypad();
-        if (key != '\0') {
-            handle_keypress(key);
-        }
+  while (true) {
+    sleep_ms(20); // Aguarda 20 milissegundos para melhor funcionamento do simulador 
+    tecla = ler_keypad(); // Lê as teclas do keypad
+    if(tecla != '\0') {
+        printf("Tecla pressionada: %c\n", tecla);
+        handle_keypress(tecla);
+        sleep_ms(180);
     }
+  }
 }

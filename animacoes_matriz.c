@@ -169,21 +169,87 @@ void animacao1() {
   npClear(); // Limpar Buffer de pixels
 
   // Arrays com o desenho
-  uint8_t vetorR[5][5] = {
+  uint8_t vetorR1[5][5] = {
     {  0  ,  0  ,  0  ,  0  ,  0  },
     {  0  , 255 ,  0  , 255 ,  0  },
     {  0  ,  0  ,  0  ,  0  ,  0  },
     { 255 ,  0  ,  0  ,  0  , 255 },
     {  0  , 255 , 255 , 255 ,  0  }
   };
-  uint8_t vetorG[5][5] = {
+  uint8_t vetorG1[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB1[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR1,vetorG1,vetorB1);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+
+  sleep_ms(1000);
+
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR2[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG2[5][5] = {
     {  0  ,  0  ,  0  ,  0  ,  0  },
     {  0  , 255 ,  0  , 255 ,  0  },
     {  0  ,  0  ,  0  ,  0  ,  0  },
     { 255 ,  0  ,  0  ,  0  , 255 },
     {  0  , 255 , 255 , 255 ,  0  }
   };
-  uint8_t vetorB[5][5] = {
+  uint8_t vetorB2[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR2,vetorG2,vetorB2);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+
+  sleep_ms(1000);
+
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR3[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG3[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB3[5][5] = {
     {  0  ,  0  ,  0  ,  0  ,  0  },
     {  0  , 255 ,  0  , 255 ,  0  },
     {  0  ,  0  ,  0  ,  0  ,  0  },
@@ -192,7 +258,7 @@ void animacao1() {
   };
 
   // Atribui as cores dos vetores RGB aos LEDs da matriz.
-  npDraw(vetorR,vetorG,vetorB);
+  npDraw(vetorR3,vetorG3,vetorB3);
 
   // Escreve os dados do buffer nos LEDs.
   npWrite();

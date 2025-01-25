@@ -266,7 +266,9 @@ int main() {
     sleep_ms(20); // Aguarda 20 milissegundos para melhor funcionamento do simulador 
     tecla = ler_keypad(); // Lê as teclas do keypad
     if(tecla != '\0') {
+        printf("Tecla pressionada: %c\n", tecla);
         handle_keypress(tecla);
+        sleep_ms(180);
     }
   }
 }

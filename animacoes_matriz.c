@@ -162,36 +162,46 @@ void npDraw(uint8_t vetorR[5][5], uint8_t vetorG[5][5], uint8_t vetorB[5][5]) {
   }
 }
 
-uint8_t vetorR[5][5] = {
-  {  0  ,  0  ,  0  ,  0  ,  0  },
-  {  0  , 255 ,  0  , 255 ,  0  },
-  {  0  ,  0  ,  0  ,  0  ,  0  },
-  { 255 ,  0  ,  0  ,  0  , 255 },
-  { 255 , 255 , 255 , 255 ,  0  }
-};
-uint8_t vetorG[5][5] = {
-  {  0  ,  0  ,  0  ,  0  ,  0  },
-  {  0  , 255 ,  0  , 255 ,  0  },
-  {  0  ,  0  ,  0  ,  0  ,  0  },
-  { 255 ,  0  ,  0  ,  0  , 255 },
-  { 255 , 255 , 255 , 255 ,  0  }
-};
-uint8_t vetorB[5][5] = {
-  {  0  ,  0  ,  0  ,  0  ,  0  },
-  {  0  , 255 ,  0  , 255 ,  0  },
-  {  0  ,  0  ,  0  ,  0  ,  0  },
-  { 255 ,  0  ,  0  ,  0  , 255 },
-  { 255 , 255 , 255 , 255 ,  0  }
-};
-
 // ---------------- Desenhar - FIM ----------------
 
+void animacao1() {
 
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 ,  0  , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    {  0  , 255 , 255 , 255 ,  0  }
+  };
+  uint8_t vetorG[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 ,  0  , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    {  0  , 255 , 255 , 255 ,  0  }
+  };
+  uint8_t vetorB[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 ,  0  , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    {  0  , 255 , 255 , 255 ,  0  }
+  };
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR,vetorG,vetorB);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+}
 
 void handle_keypress(char key) {
     switch (key) {
         case '1':
-            //animacao1();
+            animacao1();
             break;
         case '2':
             //animacao2();
@@ -254,13 +264,6 @@ int main() {
   // Inicializa matriz de LEDs NeoPixel.
   npInit(LED_PIN);
   npClear();
-
-  npDraw(vetorR,vetorG,vetorB);
-
-  npWrite();
-  
-  //npClear();
-  //npWrite();
 
   while (true) {
     sleep_ms(20); // Aguarda 20 milissegundos para melhor funcionamento do simulador 

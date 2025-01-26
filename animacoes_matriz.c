@@ -264,6 +264,43 @@ void animacao1() {
   npWrite();
 }
 
+void leds_azuis(){
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR1[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG1[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB1[5][5] = {
+    {  255  ,  255  ,  255  ,  255  , 255  },
+    {  255  ,  255  ,  255  ,  255  , 255  },
+    {  255  ,  255  ,  255  ,  255  , 255  },
+    {  255  ,  255  ,  255  ,  255  , 255  },
+    {  255  ,  255  ,  255  ,  255  , 255  }
+  };
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR1,vetorG1,vetorB1);
+
+  // Escreve
+  npWrite();
+}
+
+
+
+
+
 void handle_keypress(char key) {
     switch (key) {
         case '1':
@@ -288,7 +325,7 @@ void handle_keypress(char key) {
             //animacao6();
             break;
         case 'B':
-            //leds_azuis();
+            leds_azuis();
             break;
         case '7':
             //animacao7();

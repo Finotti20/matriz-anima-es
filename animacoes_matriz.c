@@ -254,6 +254,339 @@ void animacao1() {
   npWrite();
 }
 
+
+// Início da animação tecla 2
+void animacao2(){
+  printf("Animacao 2 acionada!\n"); // Adiciona a mensagem
+  npClear(); // Limpar Buffer de pixels
+
+
+  // Arrays com o desenho
+  uint8_t vetorR1[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorG1[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB1[5][5] = {
+      {255, 255, 255, 255, 255},
+      {0, 0, 0, 0, 255},// INVERTIDA
+      {255, 0, 255, 255, 255},
+      {255, 0, 0, 0, 255}, // INVERTIDA
+      {255, 255, 255, 255, 255}};
+  uint8_t vetorB2[5][5] = {
+      {255, 255, 255, 255, 0},
+      {0, 0, 0, 0, 0},
+      {0, 255, 255, 255, 0},
+      {0, 255, 0, 0, 0},
+      {255, 255, 255, 255, 0}};
+
+  uint8_t vetorB3[5][5] = {
+      {255, 255, 255, 0, 0},
+      {0, 0, 0, 0, 0},
+      {255, 255, 255, 0, 0},
+      {0, 0, 255, 0, 0},
+      {255, 255, 255, 0, 0}};
+  uint8_t vetorR3[5][5] = {
+      {0, 0, 0, 0, 255},
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, 255},
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, 255}};
+
+  uint8_t vetorB4[5][5] = {
+      {255, 255, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {255, 255, 0, 0, 0},
+      {0, 0, 0, 255, 0},
+      {255, 255, 0, 0, 0}};
+  uint8_t vetorR4[5][5] = {
+      {0, 0, 0,255, 255},
+      {0, 255, 0, 0, 0},
+      {0, 0, 0, 255, 255},
+      {0, 255, 0, 0, 0},
+      {0, 0, 0, 255, 0}};
+  uint8_t vetorR5[5][5] = {
+      {0, 0, 255,255, 255},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 255, 255},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0}};
+  uint8_t vetorR6[5][5] = {
+      {0, 255, 255,255, 0},
+      {255, 0, 0, 255, 0},
+      {0, 255, 255, 255, 0},
+      {0, 0, 0, 255, 0},
+      {0, 255, 0, 0, 0}};
+  uint8_t vetorR7[5][5] = {
+      {255, 255, 255,0, 0},
+      {0, 255, 0, 0, 255},
+      {255, 255, 255, 0, 0},
+      {0, 0, 0, 0, 255},
+      {255, 0, 0, 0, 0}};
+  uint8_t vetorR8[5][5] = {
+      {255, 255, 0,0, 0},
+      {0, 0, 255, 0, 0},
+      {255, 255, 0, 0, 0},
+      {0, 0, 0, 0, },
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorG8[5][5] = {
+      {0, 0, 0, 0, 255},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 255},
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, 255}};
+  uint8_t vetorG9[5][5] = {
+      {0, 0, 0, 255, 255},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 255, 255},
+      {0, 255, 0, 0, 0},
+      {0, 0, 0, 255, 255}};
+  uint8_t vetorG10[5][5] = {
+      {0, 0, 255, 255, 255},
+      {0, 0, 0, 0, 0},
+      {0, 0, 255, 255, 255},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 255, 255}};
+  uint8_t vetorG11[5][5] = {
+      {0, 255, 255, 255, 255},
+      {255, 0, 0, 0, 0},
+      {0, 255, 255, 255, 255},
+      {0, 0, 0, 255, 0},
+      {0, 255, 255, 255, 255}};
+  uint8_t vetorG12[5][5] = {
+      {255, 255, 255, 255, 0},
+      {0, 255, 0, 0, 0},
+      {255, 255, 255, 255, 0},
+      {0, 0, 0, 0, 255},
+      {255, 255, 255, 255, 0}};
+  uint8_t vetorG13[5][5] = {
+      {255, 255, 255, 0, 0},
+      {0, 0, 255, 0, 0},
+      {255, 255, 255, 0, 0},
+      {0, 0, 0, 0, 0},
+      {255, 255, 255, 0, 0}};
+
+  uint8_t vetorG14[5][5] = {
+      {255, 255, 0, 0, 0},
+      {0, 0, 0, 255, 0},
+      {255, 255, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {255, 255, 0, 0, 0}};
+  uint8_t vetorG15[5][5] = {
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, 255},
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {255, 0, 0, 0, 0}};
+  uint8_t vetorG16[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorR9[5][5] = {
+      {255, 0, 0,0, 0},
+      {0, 0, 0, 255, 0},
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, },
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorR10[5][5] = {
+      {0, 0, 0,0, 0},
+      {0, 0, 0, 0, 255},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, },
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorR11[5][5] = {
+      {0, 0, 0,0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, },
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB5[5][5] = {
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, 255},
+      {255, 0, 0, 0, 0}};
+  uint8_t vetorB6[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+
+
+  // Arrays com o desenho
+  uint8_t vetorR17[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG17[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB17[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG18[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 , 255 , 255 ,  0  },
+    {  0  , 255 ,  0  , 255 ,  0  },
+    {  0  , 255 , 255 , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorR18[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 , 255 , 255 ,  0  },
+    {  0  , 255 ,  0  , 255 ,  0  },
+    {  0  , 255 , 255 , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB19[5][5] = {
+    { 255 , 255 , 255 , 255 , 255 },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    { 255 ,  0  ,  0  ,  0  , 255 },
+    { 255 , 255 , 255 , 255 , 255 }};
+  uint8_t vetorR20[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  , 255 , 255 , 255 ,  0  },
+    {  0  , 255 , 255 , 255 ,  0  },
+    {  0  , 255 , 255 , 255 ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }};
+    uint8_t vetorG21[5][5] = {
+    { 255 , 255 , 255 , 255 , 255 },
+    { 255 , 255 , 255 , 255 , 255 },
+    { 255 , 255 , 255 , 255 , 255 },
+    { 255 , 255 , 255 , 255 , 255 },
+    { 255 , 255 , 255 , 255 , 255 }};
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR1, vetorG1, vetorB1);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+
+  sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR1, vetorG1, vetorB2);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+  sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR3, vetorG1, vetorB3);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+  sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR4, vetorG1, vetorB4);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR5, vetorG1, vetorB5);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR6, vetorG1, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+  sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR7, vetorG1, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+  sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR8, vetorG8, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR9, vetorG9, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+ npDraw(vetorR10, vetorG10, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+ npDraw(vetorR11, vetorG11, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+  sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR11, vetorG12, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+  sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR11, vetorG13, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+  sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR11, vetorG14, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR11, vetorG15, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(600); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR11, vetorG16, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(200); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR17, vetorG17, vetorB17);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+    sleep_ms(128); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR18, vetorG18, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+      sleep_ms(128); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR1, vetorG1, vetorB19);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+      sleep_ms(128); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR20, vetorG1, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+      sleep_ms(128); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+  npClear(); // Limpar Buffer de pixels
+  npDraw(vetorR1, vetorG21, vetorB6);
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+      sleep_ms(128); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
+}
+
+
 // Início da animação tecla 4
 
 void animacao4()
@@ -643,7 +976,7 @@ void handle_keypress(char key)
     animacao1();
     break;
   case '2':
-    // animacao2();
+    animacao2();
     break;
   case '3':
     // animacao3();

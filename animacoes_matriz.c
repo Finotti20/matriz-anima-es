@@ -599,6 +599,37 @@ void leds_azuis()
   npWrite();
 }
 
+void leds_vermelhos()
+{
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR1[5][5] = {
+      {205, 205, 205, 205, 205},
+      {205, 205, 205, 205, 205},
+      {205, 205, 205, 205, 205},
+      {205, 205, 205, 205, 205},
+      {205, 205, 205, 205, 205}};
+  uint8_t vetorG1[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB1[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR1, vetorG1, vetorB1);
+
+  // Escreve
+  npWrite();
+}
+
 void aciona_leds() {
     npClear(); // Limpa o buffer de pixels, desligando todos os LEDs
     npWrite(); // Atualiza a matriz de LEDs para refletir a mudança
@@ -642,7 +673,7 @@ void handle_keypress(char key)
     // animacao9();
     break;
   case 'C':
-    // leds_vermelhos();
+    leds_vermelhos();
     break;
   case '*':
     printf("Entrando no modo BOOTSEL. Aguarde...\n");

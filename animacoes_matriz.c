@@ -3,6 +3,7 @@
 #include "hardware/pio.h"
 #include "pico/cyw43_arch.h"
 #include "hardware/clocks.h"
+#include "animacao3.h"
 
 #include "ws2812.pio.h"
 
@@ -456,7 +457,7 @@ void handle_keypress(char key)
     // animacao2();
     break;
   case '3':
-    // animacao3();
+    animacao3(); 
     break;
   case 'A':
     // aciona_leds();

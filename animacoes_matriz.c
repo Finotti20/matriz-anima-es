@@ -269,6 +269,9 @@ void animacao1()
 
 void animacao4()
 {
+
+  printf("Animacao 4 acionada!\n"); // Adiciona a mensagem
+
   npClear(); // Limpar Buffer de pixels
 
   // Arrays com o desenho

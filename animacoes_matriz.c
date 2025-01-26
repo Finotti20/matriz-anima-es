@@ -3,6 +3,7 @@
 #include "hardware/pio.h"
 #include "pico/cyw43_arch.h"
 #include "hardware/clocks.h"
+#include "pico/bootrom.h"
 
 #include "ws2812.pio.h"
 
@@ -414,6 +415,87 @@ void animacao4()
   npClear(); // Limpar Buffer de pixels
 }
 
+void animacao7() {
+    npClear(); // Limpar Buffer de pixels
+
+    // Frames da animação
+    uint8_t vetorR[5][5] = {0};
+    uint8_t vetorG[5][5] = {0};
+    uint8_t vetorB[5][5] = {0};
+
+    // Loop para criar 5 frames com a "sombra" percorrendo da esquerda para a direita
+    for (int coluna = 0; coluna < 5; coluna++) {
+        // Determina a cor da sombra para este frame
+        uint8_t r = 0, g = 0, b = 0;
+        if (coluna % 3 == 0) {
+            g = 255; // Verde
+        } else if (coluna % 3 == 1) {
+            b = 255; // Azul
+        } else {
+            r = 255; // Vermelho
+        }
+
+        // Limpar os vetores antes de cada frame
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                vetorR[i][j] = 0;
+                vetorG[i][j] = 0;
+                vetorB[i][j] = 0;
+            }
+        }
+
+        // Adiciona a "sombra" na coluna atual com a cor correspondente
+        for (int linha = 0; linha < 5; linha++) {
+            vetorR[linha][coluna] = r;
+            vetorG[linha][coluna] = g;
+            vetorB[linha][coluna] = b;
+        }
+
+        // Atualiza a matriz de LEDs com o frame atual
+        npDraw(vetorR, vetorG, vetorB);
+        npWrite();
+
+        // Delay entre os frames
+        sleep_ms(300);
+    }
+
+    // Adiciona o LED percorrendo as bordas para formar um quadrado
+    uint8_t r = 255, g = 255, b = 255; // Branco para o LED que percorre as bordas
+    for (int i = 0; i < 20; i++) {
+        npClear();
+
+        // Define a posição do LED na borda
+        int linha = 0, coluna = 0;
+        if (i < 5) {
+            linha = 0;
+            coluna = i; // Parte superior
+        } else if (i < 10) {
+            linha = i - 5;
+            coluna = 4; // Lado direito
+        } else if (i < 15) {
+            linha = 4;
+            coluna = 14 - i; // Parte inferior
+        } else {
+            linha = 19 - i;
+            coluna = 0; // Lado esquerdo
+        }
+
+        // Atualiza o vetor com a posição do LED
+        vetorR[linha][coluna] = r;
+        vetorG[linha][coluna] = g;
+        vetorB[linha][coluna] = b;
+
+        // Desenha o LED na borda
+        npDraw(vetorR, vetorG, vetorB);
+        npWrite();
+        sleep_ms(150);
+    }
+
+    // Limpar a matriz após a animação
+    npClear();
+    npWrite();
+}
+
 void leds_azuis()
 {
   npClear(); // Limpar Buffer de pixels
@@ -474,7 +556,7 @@ void handle_keypress(char key)
     leds_azuis();
     break;
   case '7':
-    // animacao7();
+    animacao7();
     break;
   case '8':
     // animacao8();
@@ -486,7 +568,9 @@ void handle_keypress(char key)
     // leds_vermelhos();
     break;
   case '*':
-    // reboot();
+    printf("Entrando no modo BOOTSEL. Aguarde...\n");
+    sleep_ms(500); // Pequena pausa para garantir a saída do texto
+    reset_usb_boot(0, 0); // Reinicia no modo BOOTSEL
     break;
   case '0':
     // animacao0();

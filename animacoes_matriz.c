@@ -4,7 +4,6 @@
 #include "pico/cyw43_arch.h"
 #include "hardware/clocks.h"
 #include "pico/bootrom.h"
-
 #include "ws2812.pio.h"
 
 // ---------------- TECLADO - INICIO ----------------
@@ -415,6 +414,79 @@ void animacao4()
   npClear(); // Limpar Buffer de pixels
 }
 
+void animacao5() {
+  
+  printf("Animacao 5 acionada!\n");
+  
+  // Vetores para cada letra da palavra "CEPEDI"
+  uint8_t vetorR[6][5][5] = {
+    // Letra C
+    {
+      { 0, 255, 255, 255, 0 },
+      { 255, 0, 0, 0, 255 },
+      { 255, 0, 0, 0, 0 },
+      { 255, 0, 0, 0, 255 },
+      { 0, 255, 255, 255, 0 }
+    },
+    // Letra E
+    {
+      { 255, 255, 255, 255, 255 },
+      { 0, 0, 0, 0, 255 },
+      { 255, 255, 255, 255, 0 },
+      { 0, 0, 0, 0, 255 },
+      { 255, 255, 255, 255, 255 }
+    },
+    // Letra P
+    {
+      { 255, 255, 255, 255, 255 },
+      { 255, 0, 0, 0, 255 },
+      { 255, 255, 255, 255, 255},
+      { 0, 0, 0, 0, 255 },
+      { 255, 0, 0, 0, 0 }
+    },
+    // Letra E (repetida)
+    {
+      { 255, 255, 255, 255, 255 },
+      { 0, 0, 0, 0, 255 },
+      { 255, 255, 255, 255, 0 },
+      { 0, 0, 0, 0, 255 },
+      { 255, 255, 255, 255, 255 }
+    },
+    // Letra D
+    {
+      { 255, 255, 255, 255, 0 },
+      { 255, 0, 0, 0, 255 },
+      { 255, 0, 0, 0, 255 },
+      { 255, 0, 0, 0, 255 },
+      { 255, 255, 255, 255, 0 }
+    },
+    // Letra I
+    {
+      { 0, 255, 255, 255, 0 },
+      { 0, 0, 255, 0, 0 },
+      { 0, 0, 255, 0, 0 },
+      { 0, 0, 255, 0, 0 },
+      { 0, 255, 255, 255, 0 }
+    }
+  };
+
+  // Vetores de cor G e B inicializados como zeros
+  uint8_t vetorG[5][5] = { { 0 } };
+  uint8_t vetorB[5][5] = { { 0 } };
+
+  for (int letra = 0; letra < 6; letra++) {
+    // Exibe cada letra da palavra "CEPEDI" na matriz
+    npDraw(vetorR[letra], vetorG, vetorB);
+    npWrite();
+    sleep_ms(1000); // Mostra cada letra por 1 segundo
+
+    // Limpa a matriz antes de mostrar a próxima letra
+    npClear();
+    npWrite();
+    sleep_ms(200); // Breve pausa entre as letras
+  }
+}
+
 void animacao7() {
     npClear(); // Limpar Buffer de pixels
 
@@ -527,6 +599,11 @@ void leds_azuis()
   npWrite();
 }
 
+void aciona_leds() {
+    npClear(); // Limpa o buffer de pixels, desligando todos os LEDs
+    npWrite(); // Atualiza a matriz de LEDs para refletir a mudança
+}
+
 void handle_keypress(char key)
 {
   switch (key)
@@ -541,13 +618,13 @@ void handle_keypress(char key)
     // animacao3();
     break;
   case 'A':
-    // aciona_leds();
+    aciona_leds();
     break;
   case '4':
     animacao4();
     break;
   case '5':
-    // animacao5();
+    animacao5();
     break;
   case '6':
     // animacao6();

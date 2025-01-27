@@ -820,6 +820,119 @@ void animacao5() {
   }
 }
 
+//animação tecla 6
+void animacao6() {
+
+  npClear(); // impa buffer de pixels
+
+  // Arrays com os desenhos
+  uint8_t vetorR1[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG1[5][5] = {
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB1[5][5] = {
+    { 255  ,  0  ,  0  ,  0  ,  0  },
+    {  0   ,  0  ,  0  ,  0  ,  0  },
+    {  0   ,  0  ,  0  ,  0  ,  0  },
+    {  0   ,  0  ,  0  ,  0  ,  0  },
+    {  0   ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB2[5][5] = {
+    {  0  , 255 ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB3[5][5] = {
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG2[5][5] = {
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB4[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG3[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB5[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorG4[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  }
+  };
+  uint8_t vetorB6[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  }
+  };
+  uint8_t vetorG5[5][5] = {
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  ,  0  ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  },
+    {  0  ,  0  , 255 ,  0  ,  0  }
+  };
+  //escrita e atuliazacao de desenhos
+  npDraw(vetorR1,vetorG1,vetorB1); // atribui as cores dos vetores RGB aos LEDs da matriz.
+  npWrite(); // escreve os dados do buffer nos LEDs.
+  sleep_ms(128); // tempo para formar a animação
+  npDraw(vetorR1,vetorG1,vetorB2);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorR1,vetorG2,vetorB3);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorR1,vetorG3,vetorB4);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorR1,vetorG4,vetorB5);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorR1,vetorG5,vetorB6);
+  npWrite();
+  sleep_ms(128);
+  npClear(); // limpa buffer (apaga todos os leds)
+  npWrite();
+}
+
 void animacao7() {
     npClear(); // Limpar Buffer de pixels
 
@@ -1095,7 +1208,7 @@ void handle_keypress(char key)
     animacao5();
     break;
   case '6':
-    // animacao6();
+    animacao6();
     break;
   case 'B':
     leds_azuis();

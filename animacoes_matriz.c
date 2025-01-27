@@ -821,6 +821,108 @@ void animacao5()
   }
 }
 
+// animação tecla 6
+void animacao6()
+{
+
+  npClear(); // impa buffer de pixels
+
+  // Arrays com os desenhos
+  uint8_t vetorR1[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorG1[5][5] = {
+      {0, 0, 255, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB1[5][5] = {
+      {255, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB2[5][5] = {
+      {0, 255, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB3[5][5] = {
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorG2[5][5] = {
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB4[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorG3[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB5[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorG4[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 0, 0, 0}};
+  uint8_t vetorB6[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0}};
+  uint8_t vetorG5[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 255, 0, 0},
+      {0, 0, 255, 0, 0}};
+  // escrita e atuliazacao de desenhos
+  npDraw(vetorR1, vetorG1, vetorB1); // atribui as cores dos vetores RGB aos LEDs da matriz.
+  npWrite();                         // escreve os dados do buffer nos LEDs.
+  sleep_ms(128);                     // tempo para formar a animação
+  npDraw(vetorR1, vetorG1, vetorB2);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorR1, vetorG2, vetorB3);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorR1, vetorG3, vetorB4);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorR1, vetorG4, vetorB5);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorR1, vetorG5, vetorB6);
+  npWrite();
+  sleep_ms(128);
+  npClear(); // limpa buffer (apaga todos os leds)
+  npWrite();
+}
+
 void animacao7()
 {
   npClear(); // Limpar Buffer de pixels
@@ -920,6 +1022,111 @@ void animacao7()
   npWrite();
 }
 
+// Início da animação tecla 9
+
+void animacao9()
+{
+  printf("Animacao 9 acionada!\n"); // Mensagem indicando a execução
+
+  npClear(); // Limpar Buffer de pixels
+
+  // Array com o desenho inicial (número 9 em RGB)
+  uint8_t vetorR1[5][5] = {
+      {255, 255, 255, 255, 255},
+      {255, 0, 0, 0, 255},
+      {255, 255, 255, 255, 255},
+      {0, 0, 0, 0, 255},
+      {255, 255, 255, 255, 255}};
+
+  uint8_t vetorG1[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+
+  uint8_t vetorB1[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR1, vetorG1, vetorB1);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+
+  sleep_ms(1000); // Pausa a execução por 1 segundo
+
+  npClear(); // Limpa o buffer novamente para próximo quadro
+
+  // Segunda parte da animação para reforçar o "efeito"
+  uint8_t vetorR2[5][5] = {
+      {255, 255, 255, 255, 255},
+      {255, 0, 0, 0, 255},
+      {255, 255, 255, 255, 255},
+      {0, 0, 0, 0, 255},
+      {0, 0, 0, 0, 255}};
+
+  uint8_t vetorG2[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+
+  uint8_t vetorB2[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR2, vetorG2, vetorB2);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+
+  sleep_ms(1000); // Pausa a execução por 1 segundo
+
+  npClear(); // Limpa o buffer novamente para próxima etapa
+
+  // Finaliza com o "brilho total" do número 9
+  uint8_t vetorR3[5][5] = {
+      {255, 255, 255, 255, 255},
+      {255, 0, 0, 0, 255},
+      {255, 255, 255, 255, 255},
+      {0, 0, 0, 0, 255},
+      {0, 0, 0, 0, 255}};
+
+  uint8_t vetorG3[5][5] = {
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0},
+      {0, 0, 0, 0, 0}};
+
+  uint8_t vetorB3[5][5] = {
+      {255, 255, 255, 255, 255},
+      {255, 0, 0, 0, 255},
+      {255, 255, 255, 255, 255},
+      {0, 0, 0, 0, 255},
+      {0, 0, 0, 0, 255}};
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR3, vetorG3, vetorB3);
+
+  // Escreve os dados do buffer nos LEDs.
+  npWrite();
+
+  sleep_ms(1000); // Pausa a execução por 1 segundo
+
+  npClear(); // Limpa o buffer ao finalizar
+}
+
 void leds_azuis()
 {
   npClear(); // Limpar Buffer de pixels
@@ -984,7 +1191,8 @@ void leds_vermelhos()
 
 void leds_verdes()
 {
-  npClear(); // Limpar Buffer de pixels
+  printf("Leds verdes acionado!\n"); // Mensagem indicando a execução
+  npClear();                         // Limpar Buffer de pixels
 
   uint8_t intensidade = (50 * 255) / 100; // Calculando a intensidade em 50%
 
@@ -1044,7 +1252,7 @@ void handle_keypress(char key)
     animacao5();
     break;
   case '6':
-    // animacao6();
+    animacao6();
     break;
   case 'B':
     leds_azuis();
@@ -1056,7 +1264,7 @@ void handle_keypress(char key)
     // animacao8();
     break;
   case '9':
-    // animacao9();
+    animacao9();
     break;
   case 'C':
     leds_vermelhos();
@@ -1073,7 +1281,7 @@ void handle_keypress(char key)
     // white_leds();
     break;
   case 'D':
-    leds_verdes();
+    // leds_verdes();
     break;
   default:
     break;

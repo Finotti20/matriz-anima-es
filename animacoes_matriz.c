@@ -901,6 +901,110 @@ void animacao7() {
     npWrite();
 }
 
+// Início da animação tecla 9
+
+void animacao9() {
+    printf("Animacao 9 acionada!\n"); // Mensagem indicando a execução
+
+    npClear(); // Limpar Buffer de pixels
+
+    // Array com o desenho inicial (número 9 em RGB)
+    uint8_t vetorR1[5][5] = {
+        {255, 255, 255, 255, 255},
+        {255, 0, 0, 0, 255},
+        {255, 255, 255, 255, 255},
+        {0, 0, 0, 0, 255},
+        {255, 255, 255, 255, 255}};
+
+    uint8_t vetorG1[5][5] = {
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}};
+
+    uint8_t vetorB1[5][5] = {
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}};
+
+    // Atribui as cores dos vetores RGB aos LEDs da matriz.
+    npDraw(vetorR1, vetorG1, vetorB1);
+
+    // Escreve os dados do buffer nos LEDs.
+    npWrite();
+
+    sleep_ms(1000); // Pausa a execução por 1 segundo
+
+    npClear(); // Limpa o buffer novamente para próximo quadro
+
+    // Segunda parte da animação para reforçar o "efeito"
+    uint8_t vetorR2[5][5] = {
+        {255, 255, 255, 255, 255},
+        {255, 0, 0, 0, 255},
+        {255, 255, 255, 255, 255},
+        {0, 0, 0, 0, 255},
+        {0, 0, 0, 0, 255}};
+
+    uint8_t vetorG2[5][5] = {
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}};
+
+    uint8_t vetorB2[5][5] = {
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}};
+
+    // Atribui as cores dos vetores RGB aos LEDs da matriz.
+    npDraw(vetorR2, vetorG2, vetorB2);
+
+    // Escreve os dados do buffer nos LEDs.
+    npWrite();
+
+    sleep_ms(1000); // Pausa a execução por 1 segundo
+
+    npClear(); // Limpa o buffer novamente para próxima etapa
+
+    // Finaliza com o "brilho total" do número 9
+    uint8_t vetorR3[5][5] = {
+        {255, 255, 255, 255, 255},
+        {255, 0, 0, 0, 255},
+        {255, 255, 255, 255, 255},
+        {0, 0, 0, 0, 255},
+        {0, 0, 0, 0, 255}};
+
+    uint8_t vetorG3[5][5] = {
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}};
+
+    uint8_t vetorB3[5][5] = {
+        {255, 255, 255, 255, 255},
+        {255, 0, 0, 0, 255},
+        {255, 255, 255, 255, 255},
+        {0, 0, 0, 0, 255},
+        {0, 0, 0, 0, 255}};
+
+    // Atribui as cores dos vetores RGB aos LEDs da matriz.
+    npDraw(vetorR3, vetorG3, vetorB3);
+
+    // Escreve os dados do buffer nos LEDs.
+    npWrite();
+
+    sleep_ms(1000); // Pausa a execução por 1 segundo
+
+    npClear(); // Limpa o buffer ao finalizar
+}
+
 void leds_azuis()
 {
   npClear(); // Limpar Buffer de pixels
@@ -1003,7 +1107,7 @@ void handle_keypress(char key)
     // animacao8();
     break;
   case '9':
-    // animacao9();
+    animacao9();
     break;
   case 'C':
     leds_vermelhos();

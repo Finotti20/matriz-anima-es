@@ -37,6 +37,19 @@ const char teclas[LINHAS][COLUNAS] = {
     {'*', '0', '#', 'D'}};
 
 // Função para inicializar os pinos das linhas e colunas do teclado
+
+void NpDraw(int linha, int coluna, int r, int g, int b) {
+    // Lógica para controlar o LED da matriz (linha, coluna) com a cor (r, g, b)
+    // Esta parte dependeria da biblioteca ou hardware que você estiver utilizando.
+    printf("LED[%d][%d] aceso com cor RGB(%d, %d, %d)\n", linha, coluna, r, g, b);
+}
+
+// Função para atualizar a matriz de LEDs
+void NpWrite() {
+    // Atualiza a matriz de LEDs (este código seria específico para o seu hardware)
+    printf("Atualizando a matriz de LEDs...\n");
+}
+
 void iniciar_keypad()
 {
   uint8_t i;
@@ -59,16 +72,16 @@ void iniciar_keypad()
 void acende_led(int linha, int coluna) {
     // Aqui você deve implementar o código que acende o LED (linha, coluna)
     // Este é um exemplo genérico
-    npDraw(linha, coluna, 255, 255, 255);  // LED aceso com cor branca (RGB)
-    npWrite();  // Atualiza a matriz de LEDs
+    NpDraw(linha, coluna, 255, 255, 255);  // LED aceso com cor branca (RGB)
+    NpWrite();  // Atualiza a matriz de LEDs
 }
 
 // Função para apagar um LED na posição (linha, coluna)
 void apaga_led(int linha, int coluna) {
     // Aqui você deve implementar o código que apaga o LED (linha, coluna)
     // Este é um exemplo genérico
-    npDraw(linha, coluna, 0, 0, 0);  // LED apagado (preto)
-    npWrite();  // Atualiza a matriz de LEDs
+    NpDraw(linha, coluna, 0, 0, 0);  // LED apagado (preto)
+    NpWrite();  // Atualiza a matriz de LEDs
 }
 
 // Função para ler a tecla pressionada no teclado matricial

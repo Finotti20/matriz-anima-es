@@ -1024,6 +1024,47 @@ void animacao7()
 
 // Início da animação tecla 9
 
+// Animação 8: LEDs acendem em linha e depois apagam, criando um movimento sequencial.
+void animacao8() {
+    int i, j;
+
+    // Sequência de acendimento de LEDs da esquerda para a direita, linha por linha
+    for (i = 0; i < NUM_LINHAS; i++) {
+        for (j = 0; j < NUM_COLUNAS; j++) {
+            acende_led(i, j);  // Acende o LED
+            usleep(100000);  // Pausa de 0.1 segundos (100ms)
+            apaga_led(i, j);  // Apaga o LED
+        }
+    }
+
+    // Sequência de acendimento de LEDs da direita para a esquerda, linha por linha
+    for (i = 0; i < NUM_LINHAS; i++) {
+        for (j = NUM_COLUNAS - 1; j >= 0; j--) {
+            acende_led(i, j);  // Acende o LED
+            usleep(100000);  // Pausa de 0.1 segundos
+            apaga_led(i, j);  // Apaga o LED
+        }
+    }
+
+    // Sequência de acendimento de LEDs de cima para baixo
+    for (j = 0; j < NUM_COLUNAS; j++) {
+        for (i = 0; i < NUM_LINHAS; i++) {
+            acende_led(i, j);  // Acende o LED
+            usleep(100000);  // Pausa de 0.1 segundos
+            apaga_led(i, j);  // Apaga o LED
+        }
+    }
+
+    // Sequência de acendimento de LEDs de baixo para cima
+    for (j = 0; j < NUM_COLUNAS; j++) {
+        for (i = NUM_LINHAS - 1; i >= 0; i--) {
+            acende_led(i, j);  // Acende o LED
+            usleep(100000);  // Pausa de 0.1 segundos
+            apaga_led(i, j);  // Apaga o LED
+        }
+    }
+}
+
 void animacao9()
 {
   printf("Animacao 9 acionada!\n"); // Mensagem indicando a execução
@@ -1292,7 +1333,7 @@ void handle_keypress(char key)
     animacao7();
     break;
   case '8':
-    // animacao8();
+    animacao8();
     break;
   case '9':
     animacao9();

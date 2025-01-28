@@ -1189,6 +1189,37 @@ void leds_vermelhos()
   npWrite();
 }
 
+void white_leds()
+{
+  npClear(); // Limpar Buffer de pixels
+
+  // Arrays com o desenho
+  uint8_t vetorR1[5][5] = {
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51}};
+  uint8_t vetorG1[5][5] = {
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51}};
+  uint8_t vetorB1[5][5] = {
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51},
+      {51, 51, 51, 51, 51}};
+
+  // Atribui as cores dos vetores RGB aos LEDs da matriz.
+  npDraw(vetorR1, vetorG1, vetorB1);
+
+  // Escreve
+  npWrite();
+}
+
 void leds_verdes()
 {
   printf("Leds verdes acionado!\n"); // Mensagem indicando a execução
@@ -1278,7 +1309,7 @@ void handle_keypress(char key)
     // animacao0();
     break;
   case '#':
-    // white_leds();
+    white_leds();
     break;
   case 'D':
     // leds_verdes();

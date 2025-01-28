@@ -593,6 +593,80 @@ void animacao2()
   sleep_ms(128); // Pausa a execução do programa por 1000 milissegundos (1 segundo)
 }
 
+
+// Início da animação tecla 3 
+
+void animacao3()
+{
+  printf("Animacao 3 acionada!\n"); // Adiciona a mensagem
+
+  npClear(); // Limpar Buffer de pixels
+
+   // Frame 1
+    uint8_t frame1R[5][5] = {
+        {0, 255, 0, 255, 0},
+        {255, 0, 255, 0, 255},
+        {255, 0, 0, 0, 255},
+        {0, 255, 0, 255, 0},
+        {0, 0, 255, 0, 0}};
+
+    // Frame 2
+    uint8_t frame2R[5][5] = {
+        {0, 0, 255, 0, 0},
+        {0, 255, 0, 255, 0},
+        {255, 0, 0, 0, 255},
+        {0, 255, 0, 255, 0},
+        {0, 0, 255, 0, 0}};
+
+    // Frame 3
+    uint8_t frame3R[5][5] = {
+        {255, 0, 0, 0, 255},
+        {0, 255, 0, 255, 0},
+        {0, 0, 255, 0, 0},
+        {0, 255, 0, 255, 0},
+        {255, 0, 0, 0, 255}};
+
+    // Frame 4
+    uint8_t frame4R[5][5] = {
+        {0, 255, 0, 255, 0},
+        {255, 0, 255, 0, 255},
+        {0, 255, 0, 255, 0},
+        {0, 0, 255, 0, 0},
+        {0, 0, 0, 0, 0}};
+
+    // Frame 5
+    uint8_t frame5R[5][5] = {
+        {0, 0, 0, 0, 0},
+        {0, 255, 0, 255, 0},
+        {255, 0, 0, 0, 255},
+        {0, 255, 0, 255, 0},
+        {0, 0, 255, 0, 0}};
+
+    // Vetores G e B (mantêm apagados, apenas cor vermelha usada)
+    uint8_t frameG[5][5] = {0};
+    uint8_t frameB[5][5] = {0};
+
+    // Array de frames
+    uint8_t *frames[5] = {frame1R[0], frame2R[0], frame3R[0], frame4R[0], frame5R[0]};
+
+    // Executa os frames
+    for (int i = 0; i < 5; i++)
+    {
+        // Desenha o frame atual
+        npDraw((uint8_t(*)[5])frames[i], frameG, frameB);
+
+        // Escreve no LED
+        npWrite();
+
+        // Pausa entre frames
+        sleep_ms(1000);
+    }
+
+    // Limpa os LEDs ao final
+    npClear();
+}
+
+
 // Início da animação tecla 4
 
 void animacao4()
@@ -1271,7 +1345,7 @@ void handle_keypress(char key)
     animacao2();
     break;
   case '3':
-    // animacao3();
+     animacao3();
     break;
   case 'A':
     aciona_leds();

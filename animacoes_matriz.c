@@ -5,12 +5,15 @@
 #include "hardware/clocks.h"
 #include "pico/bootrom.h"
 #include "ws2812.pio.h"
-
+#include <stdlib.h>
+#include <unistd.h>
 // ---------------- TECLADO - INICIO ----------------
 
 // Definição do tamanho do teclado matricial (4x4)
 #define LINHAS 4
 #define COLUNAS 4
+#define NUM_LINHAS 5
+#define NUM_COLUNAS 5
 
 // Definição dos pinos GPIO das linhas e colunas do teclado matricial
 #define L1 9
@@ -51,6 +54,21 @@ void iniciar_keypad()
     gpio_set_dir(pinos_colunas[i], GPIO_IN);
     gpio_pull_down(pinos_colunas[i]);
   }
+}
+
+void acende_led(int linha, int coluna) {
+    // Aqui você deve implementar o código que acende o LED (linha, coluna)
+    // Este é um exemplo genérico
+    npDraw(linha, coluna, 255, 255, 255);  // LED aceso com cor branca (RGB)
+    npWrite();  // Atualiza a matriz de LEDs
+}
+
+// Função para apagar um LED na posição (linha, coluna)
+void apaga_led(int linha, int coluna) {
+    // Aqui você deve implementar o código que apaga o LED (linha, coluna)
+    // Este é um exemplo genérico
+    npDraw(linha, coluna, 0, 0, 0);  // LED apagado (preto)
+    npWrite();  // Atualiza a matriz de LEDs
 }
 
 // Função para ler a tecla pressionada no teclado matricial
@@ -1408,6 +1426,7 @@ void handle_keypress(char key)
     break;
   case '8':
     animacao8();
+    usleep(500000);
     break;
   case '9':
     animacao9();

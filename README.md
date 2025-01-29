@@ -48,6 +48,6 @@ Este projeto consiste na geração de animações visuais em uma matriz de LEDs 
 3️⃣ Simule no **Wokwi** e teste as animações! 🎉
 
 ## 📹 Demonstração
-🔗 Assista ao vídeo da implementação: 
+🔗 Assista ao vídeo da implementação: https://youtu.be/IcqmgLg27CE
 
 ---

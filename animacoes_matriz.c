@@ -5,15 +5,12 @@
 #include "hardware/clocks.h"
 #include "pico/bootrom.h"
 #include "ws2812.pio.h"
-#include <stdlib.h>
-#include <unistd.h>
+
 // ---------------- TECLADO - INICIO ----------------
 
 // Definição do tamanho do teclado matricial (4x4)
 #define LINHAS 4
 #define COLUNAS 4
-#define NUM_LINHAS 5
-#define NUM_COLUNAS 5
 
 // Definição dos pinos GPIO das linhas e colunas do teclado matricial
 #define L1 9
@@ -38,18 +35,6 @@ const char teclas[LINHAS][COLUNAS] = {
 
 // Função para inicializar os pinos das linhas e colunas do teclado
 
-void NpDraw(int linha, int coluna, int r, int g, int b) {
-    // Lógica para controlar o LED da matriz (linha, coluna) com a cor (r, g, b)
-    // Esta parte dependeria da biblioteca ou hardware que você estiver utilizando.
-    printf("LED[%d][%d] aceso com cor RGB(%d, %d, %d)\n", linha, coluna, r, g, b);
-}
-
-// Função para atualizar a matriz de LEDs
-void NpWrite() {
-    // Atualiza a matriz de LEDs (este código seria específico para o seu hardware)
-    printf("Atualizando a matriz de LEDs...\n");
-}
-
 void iniciar_keypad()
 {
   uint8_t i;
@@ -67,21 +52,6 @@ void iniciar_keypad()
     gpio_set_dir(pinos_colunas[i], GPIO_IN);
     gpio_pull_down(pinos_colunas[i]);
   }
-}
-
-void acende_led(int linha, int coluna) {
-    // Aqui você deve implementar o código que acende o LED (linha, coluna)
-    // Este é um exemplo genérico
-    NpDraw(linha, coluna, 255, 255, 255);  // LED aceso com cor branca (RGB)
-    NpWrite();  // Atualiza a matriz de LEDs
-}
-
-// Função para apagar um LED na posição (linha, coluna)
-void apaga_led(int linha, int coluna) {
-    // Aqui você deve implementar o código que apaga o LED (linha, coluna)
-    // Este é um exemplo genérico
-    NpDraw(linha, coluna, 0, 0, 0);  // LED apagado (preto)
-    NpWrite();  // Atualiza a matriz de LEDs
 }
 
 // Função para ler a tecla pressionada no teclado matricial
@@ -1131,43 +1101,55 @@ void animacao7()
 
 // Animação 8: LEDs acendem em linha e depois apagam, criando um movimento sequencial.
 void animacao8() {
-    int i, j;
-
-    // Sequência de acendimento de LEDs da esquerda para a direita, linha por linha
-    for (i = 0; i < NUM_LINHAS; i++) {
-        for (j = 0; j < NUM_COLUNAS; j++) {
-            acende_led(i, j);  // Acende o LED
-            usleep(100000);  // Pausa de 0.1 segundos (100ms)
-            apaga_led(i, j);  // Apaga o LED
-        }
-    }
-
-    // Sequência de acendimento de LEDs da direita para a esquerda, linha por linha
-    for (i = 0; i < NUM_LINHAS; i++) {
-        for (j = NUM_COLUNAS - 1; j >= 0; j--) {
-            acende_led(i, j);  // Acende o LED
-            usleep(100000);  // Pausa de 0.1 segundos
-            apaga_led(i, j);  // Apaga o LED
-        }
-    }
-
-    // Sequência de acendimento de LEDs de cima para baixo
-    for (j = 0; j < NUM_COLUNAS; j++) {
-        for (i = 0; i < NUM_LINHAS; i++) {
-            acende_led(i, j);  // Acende o LED
-            usleep(100000);  // Pausa de 0.1 segundos
-            apaga_led(i, j);  // Apaga o LED
-        }
-    }
-
-    // Sequência de acendimento de LEDs de baixo para cima
-    for (j = 0; j < NUM_COLUNAS; j++) {
-        for (i = NUM_LINHAS - 1; i >= 0; i--) {
-            acende_led(i, j);  // Acende o LED
-            usleep(100000);  // Pausa de 0.1 segundos
-            apaga_led(i, j);  // Apaga o LED
-        }
-    }
+  uint8_t vetorRGB1[5][5] = {
+    {255, 255, 255, 255, 255},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0}};
+  uint8_t vetorRGB2[5][5] = {
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0}};
+  uint8_t vetorRGB3[5][5] = {
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0}};
+  uint8_t vetorRGB4[5][5] = {
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {0, 0, 0, 0, 0}};
+  uint8_t vetorRGB5[5][5] = {
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255},
+    {255, 255, 255, 255, 255}};
+    
+  // Sequência de acendimento de LEDs linha por linha
+  npDraw(vetorRGB1,vetorRGB1,vetorRGB1);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorRGB2,vetorRGB2,vetorRGB2);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorRGB3,vetorRGB3,vetorRGB3);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorRGB4,vetorRGB4,vetorRGB4);
+  npWrite();
+  sleep_ms(128);
+  npDraw(vetorRGB5,vetorRGB5,vetorRGB5);
+  npWrite();
+  sleep_ms(128);
+  npClear();
+  npWrite();
 }
 
 void animacao9()
@@ -1439,7 +1421,6 @@ void handle_keypress(char key)
     break;
   case '8':
     animacao8();
-    usleep(500000);
     break;
   case '9':
     animacao9();

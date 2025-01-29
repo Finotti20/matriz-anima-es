@@ -1057,7 +1057,7 @@ void animacao7()
 
 // Animação 8: LEDs acendem em linha e depois apagam, criando um movimento sequencial.
 void animacao8() {
-     printf("Animacao 5 acionada!\n");
+     printf("Animacao 8 acionada!\n");
 
   // Vetores para cada letra da palavra "OLA"
   uint8_t vetorR[3][5][5] = {

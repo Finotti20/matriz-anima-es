@@ -46,7 +46,7 @@ void NpDraw(int linha, int coluna, int r, int g, int b) {
 
 // Função para atualizar a matriz de LEDs
 void NpWrite() {
-    // Atualiza a matriz de LEDs (este código seria específico para o seu hardware)
+    // Atualiza a matriz de LEDs (este código seria específico para o hardware)
     printf("Atualizando a matriz de LEDs...\n");
 }
 
@@ -1057,43 +1057,50 @@ void animacao7()
 
 // Animação 8: LEDs acendem em linha e depois apagam, criando um movimento sequencial.
 void animacao8() {
-    int i, j;
+     printf("Animacao 5 acionada!\n");
 
-    // Sequência de acendimento de LEDs da esquerda para a direita, linha por linha
-    for (i = 0; i < NUM_LINHAS; i++) {
-        for (j = 0; j < NUM_COLUNAS; j++) {
-            acende_led(i, j);  // Acende o LED
-            usleep(100000);  // Pausa de 0.1 segundos (100ms)
-            apaga_led(i, j);  // Apaga o LED
-        }
-    }
+  // Vetores para cada letra da palavra "OLA"
+  uint8_t vetorR[3][5][5] = {
+      // Letra O
+      {
+          {0, 255, 255, 255, 0},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255},
+          {0, 255, 255, 255, 0}},
+      // Letra L
+      {
+          {255, 0, 0, 0, 0},
+          {255, 0, 0, 0, 0},
+          {255, 0, 0, 0, 0},
+          {255, 0, 0, 0, 0},
+          {255, 255, 255, 255, 255}},
+      // Letra A
+      {
+          {0, 255, 255, 255, 0},
+          {255, 0, 0, 0, 255},
+          {255, 255, 255, 255, 255},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255}}};
 
-    // Sequência de acendimento de LEDs da direita para a esquerda, linha por linha
-    for (i = 0; i < NUM_LINHAS; i++) {
-        for (j = NUM_COLUNAS - 1; j >= 0; j--) {
-            acende_led(i, j);  // Acende o LED
-            usleep(100000);  // Pausa de 0.1 segundos
-            apaga_led(i, j);  // Apaga o LED
-        }
-    }
+  // Vetores de cor G e B inicializados como zeros
+  uint8_t vetorG[5][5] = {{0}};
+  uint8_t vetorB[5][5] = {{0}};
 
-    // Sequência de acendimento de LEDs de cima para baixo
-    for (j = 0; j < NUM_COLUNAS; j++) {
-        for (i = 0; i < NUM_LINHAS; i++) {
-            acende_led(i, j);  // Acende o LED
-            usleep(100000);  // Pausa de 0.1 segundos
-            apaga_led(i, j);  // Apaga o LED
-        }
-    }
+  int numLetras = sizeof(vetorR) / sizeof(vetorR[0]);
+  
+  for (int letra = 0; letra < numLetras; letra++)
+  {
+    // Exibe cada letra da palavra "OLA" na matriz
+    npDraw(vetorR[letra], vetorG, vetorB);
+    npWrite();
+    sleep_ms(1000); // Mostra cada letra por 1 segundo
 
-    // Sequência de acendimento de LEDs de baixo para cima
-    for (j = 0; j < NUM_COLUNAS; j++) {
-        for (i = NUM_LINHAS - 1; i >= 0; i--) {
-            acende_led(i, j);  // Acende o LED
-            usleep(100000);  // Pausa de 0.1 segundos
-            apaga_led(i, j);  // Apaga o LED
-        }
-    }
+    // Limpa a matriz antes de mostrar a próxima letra
+    npClear();
+    npWrite();
+    sleep_ms(200); // Breve pausa entre as letras
+  }
 }
 
 void animacao9()
@@ -1365,7 +1372,7 @@ void handle_keypress(char key)
     break;
   case '8':
     animacao8();
-    usleep(500000);
+    sleep_us(500000);
     break;
   case '9':
     animacao9();

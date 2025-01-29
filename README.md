@@ -36,8 +36,8 @@ Este projeto consiste na geração de animações visuais em uma matriz de LEDs 
 ## 📥 Instalação e Configuração
 1. Clone o repositório:
    ```sh
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
-   cd nome-do-repositorio
+   git clone https://github.com/Finotti20/matriz-anima-es.git
+   cd matriz-anima-es
    ```
 2. Configure o ambiente **VS Code** e **Pico SDK**.
 3. Rode a simulação no **Wokwi**.

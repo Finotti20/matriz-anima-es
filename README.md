@@ -4,13 +4,14 @@
 Este projeto consiste na geração de animações visuais em uma matriz de LEDs 5x5 utilizando um **Raspberry Pi Pico W** e um **teclado matricial 4x4**, com simulação no **Wokwi**. Além disso, inclui opções para controle de cores e luminosidade via teclado, além de um buzzer opcional para efeitos sonoros.
 ## 👥 Desenvolvedores
 - Mariana Farias da Silva
-- Felipe Chaves Lacerda
 - Gabriel Finotti Barros
+- Gabriel Cavalcanti Coelho
 - Isabel Rosa de Santana
 - Pablo Vinicius Rodrigues Barboza
 - Pedro Henrique Carvalho Felix
 - Ramon Leite Petitinga
 - Samuel Rodrigues
+- Felipe Chaves Lacerda
 
 
 

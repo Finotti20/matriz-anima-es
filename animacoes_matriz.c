@@ -1255,6 +1255,53 @@ void animacao9()
   npClear(); // Limpa o buffer ao finalizar
 }
 
+void animacao0() {
+   printf("Animacao 0 acionada!\n");
+
+  // Vetores para cada letra da palavra "OLA"
+  uint8_t vetorR[3][5][5] = {
+      // Letra O
+      {
+          {0, 255, 255, 255, 0},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255},
+          {0, 255, 255, 255, 0}},
+      // Letra L
+      {
+          {255, 0, 0, 0, 0},
+          {0, 0, 0, 0, 255},
+          {255, 0, 0, 0, 0},
+          {0, 0, 0, 0, 255},
+          {255, 255, 255, 255, 255}},
+      // Letra A
+      {
+          {0, 255, 255, 255, 0},
+          {255, 0, 0, 0, 255},
+          {255, 255, 255, 255, 255},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255}}};
+
+  // Vetores de cor G e B inicializados como zeros
+  uint8_t vetorG[5][5] = {{0}};
+  uint8_t vetorB[5][5] = {{0}};
+
+  int numLetras = sizeof(vetorR) / sizeof(vetorR[0]);
+  
+  for (int letra = 0; letra < numLetras; letra++)
+  {
+    // Exibe cada letra da palavra "OLA" na matriz
+    npDraw(vetorR[letra], vetorG, vetorB);
+    npWrite();
+    sleep_ms(1000); // Mostra cada letra por 1 segundo
+
+    // Limpa a matriz antes de mostrar a próxima letra
+    npClear();
+    npWrite();
+    sleep_ms(200); // Breve pausa entre as letras
+  }
+}
+
 void leds_azuis()
 {
   npClear(); // Limpar Buffer de pixels
@@ -1434,13 +1481,13 @@ void handle_keypress(char key)
     reset_usb_boot(0, 0); // Reinicia no modo BOOTSEL
     break;
   case '0':
-    // animacao0();
+    animacao0();
     break;
   case '#':
     white_leds();
     break;
   case 'D':
-    // leds_verdes();
+    leds_verdes();
     break;
   default:
     break;

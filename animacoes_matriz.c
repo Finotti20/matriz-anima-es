@@ -1101,55 +1101,50 @@ void animacao7()
 
 // Animação 8: LEDs acendem em linha e depois apagam, criando um movimento sequencial.
 void animacao8() {
-  uint8_t vetorRGB1[5][5] = {
-    {255, 255, 255, 255, 255},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0}};
-  uint8_t vetorRGB2[5][5] = {
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0}};
-  uint8_t vetorRGB3[5][5] = {
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0}};
-  uint8_t vetorRGB4[5][5] = {
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {0, 0, 0, 0, 0}};
-  uint8_t vetorRGB5[5][5] = {
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255},
-    {255, 255, 255, 255, 255}};
-    
-  // Sequência de acendimento de LEDs linha por linha
-  npDraw(vetorRGB1,vetorRGB1,vetorRGB1);
-  npWrite();
-  sleep_ms(128);
-  npDraw(vetorRGB2,vetorRGB2,vetorRGB2);
-  npWrite();
-  sleep_ms(128);
-  npDraw(vetorRGB3,vetorRGB3,vetorRGB3);
-  npWrite();
-  sleep_ms(128);
-  npDraw(vetorRGB4,vetorRGB4,vetorRGB4);
-  npWrite();
-  sleep_ms(128);
-  npDraw(vetorRGB5,vetorRGB5,vetorRGB5);
-  npWrite();
-  sleep_ms(128);
-  npClear();
-  npWrite();
+   printf("Animacao 5 acionada!\n");
+
+  // Vetores para cada letra da palavra "OLA"
+  uint8_t vetorR[3][5][5] = {
+      // Letra O
+      {
+          {0, 255, 255, 255, 0},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255},
+          {0, 255, 255, 255, 0}},
+      // Letra L
+      {
+          {255, 0, 0, 0, 0},
+          {255, 0, 0, 0, 0},
+          {255, 0, 0, 0, 0},
+          {255, 0, 0, 0, 0},
+          {255, 255, 255, 255, 255}},
+      // Letra A
+      {
+          {0, 255, 255, 255, 0},
+          {255, 0, 0, 0, 255},
+          {255, 255, 255, 255, 255},
+          {255, 0, 0, 0, 255},
+          {255, 0, 0, 0, 255}}};
+
+  // Vetores de cor G e B inicializados como zeros
+  uint8_t vetorG[5][5] = {{0}};
+  uint8_t vetorB[5][5] = {{0}};
+
+  int numLetras = sizeof(vetorR) / sizeof(vetorR[0]);
+  
+  for (int letra = 0; letra < numLetras; letra++)
+  {
+    // Exibe cada letra da palavra "OLA" na matriz
+    npDraw(vetorR[letra], vetorG, vetorB);
+    npWrite();
+    sleep_ms(1000); // Mostra cada letra por 1 segundo
+
+    // Limpa a matriz antes de mostrar a próxima letra
+    npClear();
+    npWrite();
+    sleep_ms(200); // Breve pausa entre as letras
+  }
 }
 
 void animacao9()
